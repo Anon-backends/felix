@@ -1,10 +1,10 @@
 <template>
-  <NuxtLayout>
-    <NuxtPage />
+  <NuxtLayout> 
+      <NuxtPage />
   </NuxtLayout>
 </template>
 
-<style>
+<style scoped>
 html,
 body {
   width: 100vw;
@@ -13,4 +13,5 @@ body {
   padding: 0;
   overflow: hidden;
 }
+
 </style>
