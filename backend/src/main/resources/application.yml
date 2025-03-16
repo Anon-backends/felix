@@ -1,3 +1,16 @@
 spring:
   application:
     name: demo
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/felix?useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: ZXL52O1314
+sa-token:
+  token-name: satoken
+  timeout: 2592000
+  active-timeout: -1
+  is-concurrent: true
+  is-share: true
+  token-style: uuid
+  is-log: true
