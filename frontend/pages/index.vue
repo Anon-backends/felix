@@ -1,7 +1,14 @@
 <template>
   <div class="root">
+    <!-- 加载状态 -->
+    <div v-if="isLoading" class="loading-container">
+      <div class="loading-text">加载中...</div>
+      <div class="progress-bar">
+        <div class="progress" :style="{ width: progress + '%' }"></div>
+      </div>
+    </div>
     <!-- 轮播图容器 -->
-    <div class="carousel-container">
+    <div v-else class="carousel-container">
       <div
         class="carousel"
         :style="{ transform: `translateX(-${currentIndex * 100}%)` }"
@@ -60,7 +67,39 @@
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
-import { useRoute, ref } from "#imports";
+import { useRoute, ref, onBeforeMount, onUnmounted } from "#imports";
+//路由守卫
+import { useRouter } from "#imports";
+
+const router = useRouter();
+const isLoading = ref(true);
+const isLoggedIn = ref(false); // 假设这里判断用户是否登录
+const progress = ref(0);
+let intervalId;
+
+onBeforeMount(async () => {
+  intervalId = setInterval(() => {
+    if (progress.value < 100) {
+      progress.value += 10;
+    }
+  }, 100);
+  try {
+    // 模拟异步检查登录状态
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    if (!isLoggedIn.value) {
+      router.push("/Login");
+    }
+  } catch (error) {
+    console.error("检查登录状态出错:", error);
+  } finally {
+    isLoading.value = false;
+    clearInterval(intervalId);
+  }
+});
+
+onUnmounted(() => {
+  clearInterval(intervalId);
+});
 
 // 将 FontAwesome 图标添加到库中
 library.add(faUserSecret);
@@ -122,6 +161,33 @@ const nextSlide = () => {
   background-size: cover;
   padding-bottom: 3rem;
   box-sizing: border-box;
+}
+
+.loading-container {
+  color: white;
+  font-size: 30px;
+  text-align: center;
+  margin-top: 100px;
+}
+
+.loading-text {
+  margin-bottom: 20px;
+}
+
+.progress-bar {
+  width: 80%;
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #f3f3f3;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 30px;
+  background-color: #007bff;
+  width: 0;
+  transition: width 0.3s ease;
 }
 
 .carousel-container {
