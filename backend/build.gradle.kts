@@ -29,12 +29,15 @@ dependencies {
 
 	// Database
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	runtimeOnly("org.postgresql:postgresql")
+	runtimeOnly("com.mysql:mysql-connector-j:8.+")
 
     // Lombok
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
-	
+
+    implementation("cn.dev33:sa-token-spring-boot3-starter:1.+")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.+")
+
 	// Test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
