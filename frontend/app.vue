@@ -1,6 +1,6 @@
 <template>
-  <NuxtLayout> 
-      <NuxtPage />
+  <NuxtLayout>
+    <NuxtPage />
   </NuxtLayout>
 </template>
 
@@ -13,5 +13,4 @@ body {
   padding: 0;
   overflow: hidden;
 }
-
 </style>
