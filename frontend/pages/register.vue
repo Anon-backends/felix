@@ -44,9 +44,7 @@ const register = async () => {
   try {
     const response = await fetch("http://localhost:8080/api/user/register", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      // 去除Content-Type，后端自动处理
       body: JSON.stringify({
         name: name.value,
         password: password.value,
@@ -57,6 +55,12 @@ const register = async () => {
 
     if (response.ok) {
       if (data.success) {
+        // 后端返回 authorization
+        const authorization = data.data;
+        if (authorization) {
+          // 将 authorization 存储到本地存储中
+          localStorage.setItem("authorization", authorization);
+        }
         registerMessage.value = "注册成功，请登录。";
         // 短暂延迟后跳转到登录页面
         setTimeout(() => {
@@ -77,7 +81,7 @@ const register = async () => {
 
 <style scoped>
 .register-background {
-  background-image: url("~/assets/background.png");
+  background-image: url("~/assets/background.webp");
   background-size: cover;
   background-position: center;
   display: flex;

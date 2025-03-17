@@ -62,7 +62,7 @@ const login = async () => {
         // 后端返回 authorization
         const authorization = data.data;
         if (authorization) {
-          // 将 authorization 存储到本地存储
+          // 将 authorization 存储到本地存储中
           localStorage.setItem("authorization", authorization);
         }
         loginMessage.value = "登录成功！";
@@ -90,7 +90,7 @@ const goToRegister = () => {
 
 <style scoped>
 .login-background {
-  background-image: url("~/assets/background.png");
+  background-image: url("~/assets/background.webp");
   background-size: cover;
   background-position: center;
   display: flex;
