@@ -1,5 +1,12 @@
-export function authorizedFetch(url, options = {}, requireAuth = true) {
-  const headers = { ...options.headers };
+export function authorizedFetch(
+  url: string,
+  options: RequestInit = {},
+  requireAuth: boolean = true,
+) {
+  const headers: Record<string, string> = { ...options.headers } as Record<
+    string,
+    string
+  >;
   if (requireAuth) {
     const authorization = localStorage.getItem("authorization");
     if (authorization) {

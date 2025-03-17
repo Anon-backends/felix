@@ -7,7 +7,7 @@ export function useCheckLoginStatus() {
   const isLoggedIn = ref(false);
   const progress = ref(0);
 
-  let intervalId;
+  let intervalId: ReturnType<typeof setInterval>;
 
   onBeforeMount(async () => {
     intervalId = setInterval(() => {

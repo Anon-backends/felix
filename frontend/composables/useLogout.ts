@@ -1,5 +1,5 @@
 import { useRouter } from "#imports";
-import { apiRequest } from "~/composables/useApiRequest";
+import { apiRequest } from "./useApiRequest";
 
 export function useLogout() {
   const router = useRouter();
