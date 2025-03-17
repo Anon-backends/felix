@@ -1,25 +1,27 @@
 import { useRouter } from "#imports";
+import { apiRequest } from "~/composables/useApiRequest";
 
-export const useLogout = () => {
+export function useLogout() {
   const router = useRouter();
 
-  const logout = async () => {
+  async function logout() {
     try {
-      const authorization = localStorage.getItem("authorization");
-      if (!authorization) {
-        console.error("未找到 authorization");
-        router.push("/Login");
+      const response = await apiRequest(
+        "user/logout",
+        {
+          method: "POST",
+        },
+        true,
+      );
+
+      if (!response.ok) {
+        const data = await response.json();
+        console.error("登出失败:", data.message);
         return;
       }
-      const response = await fetch("http://localhost:8080/api/user/logout", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${authorization}`,
-        },
-      });
 
       const data = await response.json();
-      if (response.ok && data.success) {
+      if (data.success) {
         localStorage.removeItem("authorization");
         router.push("/Login");
       } else {
@@ -28,9 +30,9 @@ export const useLogout = () => {
     } catch (error) {
       console.error("请求出错:", error);
     }
-  };
+  }
 
   return {
     logout,
   };
-};
+}

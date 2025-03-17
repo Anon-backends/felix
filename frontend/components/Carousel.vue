@@ -1,5 +1,4 @@
 <template>
-  <!-- 轮播图 -->
   <div class="carousel-container">
     <div
       class="carousel"
@@ -34,8 +33,6 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-
 const props = defineProps({
   games: {
     type: Array,

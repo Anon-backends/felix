@@ -1,7 +1,7 @@
 import { ref, onBeforeMount, onUnmounted } from "vue";
 import { useRouter } from "#imports";
 
-export const useCheckLoginStatus = () => {
+export function useCheckLoginStatus() {
   const router = useRouter();
   const isLoading = ref(true);
   const isLoggedIn = ref(false);
@@ -37,4 +37,4 @@ export const useCheckLoginStatus = () => {
     isLoggedIn,
     progress,
   };
-};
+}

@@ -1,7 +1,6 @@
 <template>
   <p>User</p>
   <div class="bottom-bar">
-    <!-- 这里假设已全局导入 FontAwesomeIcon 组件 -->
     <font-awesome-icon
       class="nav-icon"
       style="color: white"
@@ -20,13 +19,7 @@
 </template>
 
 <script setup>
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
 import { useRoute } from "#imports";
-
-// 将 FontAwesome 图标添加到库中
-library.add(faUserSecret);
 
 // 定义导航栏数据
 const navs = [
@@ -50,10 +43,10 @@ const isActive = (path) => {
 
 <style scoped>
 .bottom-bar {
-  position: fixed; /* 固定在页面底部 */
+  position: fixed;
   bottom: 0;
   left: 0;
-  width: 100%; /* 宽度为 100% */
+  width: 100%;
   flex-grow: 0;
   flex-shrink: 0;
   display: flex;
@@ -61,9 +54,9 @@ const isActive = (path) => {
   align-items: center;
   justify-content: space-evenly;
   padding: 0.5rem 1rem;
-  border-top: 0.1rem solid #ccc; /* 顶部边框颜色 */
-  background-color: #222; /* 底部导航栏背景色 */
-  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1); /* 底部导航栏阴影 */
+  border-top: 0.1rem solid #ccc;
+  background-color: #222;
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   animation: fadeIn 0.5s ease-out;
 }
