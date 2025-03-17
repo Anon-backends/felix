@@ -1,5 +1,9 @@
 <template>
   <div class="root">
+    <!-- 登出按钮 -->
+    <button @click="logout" class="logout-button">
+      <span class="logout-text">登出</span>
+    </button>
     <!-- 加载状态 -->
     <div v-if="isLoading" class="loading-container">
       <div class="loading-text">加载中...</div>
@@ -7,7 +11,7 @@
         <div class="progress" :style="{ width: progress + '%' }"></div>
       </div>
     </div>
-    <!-- 轮播图容器 -->
+    <!-- 轮播图 -->
     <div v-else class="carousel-container">
       <div
         class="carousel"
@@ -25,7 +29,7 @@
           </div>
         </a>
       </div>
-      <!-- 轮播图导航按钮 -->
+      <!-- 轮播图切换上下页按钮 -->
       <button
         @click="prevSlide"
         :disabled="currentIndex === 0"
@@ -44,7 +48,6 @@
 
     <!-- 底部导航栏 -->
     <div class="bottom-bar">
-      <!-- 这里假设已全局导入 FontAwesomeIcon 组件 -->
       <font-awesome-icon
         class="nav-icon"
         style="color: white"
@@ -72,9 +75,10 @@ import { useRoute, ref, onBeforeMount, onUnmounted } from "#imports";
 import { useRouter } from "#imports";
 
 const router = useRouter();
-const isLoading = ref(true);
-const isLoggedIn = ref(false); // 假设这里判断用户是否登录
-const progress = ref(0);
+const isLoading = ref(true); // 判断页面是否在加载
+const isLoggedIn = ref(false); // 判断用户是否登录
+const progress = ref(0); // 进度条进度
+
 let intervalId;
 
 onBeforeMount(async () => {
@@ -101,7 +105,7 @@ onUnmounted(() => {
   clearInterval(intervalId);
 });
 
-// 将 FontAwesome 图标添加到库中
+// 注册图标库
 library.add(faUserSecret);
 
 // 定义游戏列表
@@ -114,7 +118,7 @@ const games = [
   { name: "骗子酒馆" },
 ];
 
-// 定义导航栏数据
+// 定义导航栏列表
 const navs = [
   { label: "游戏", path: "/" },
   { label: "创意工坊", path: "/workshop" },
@@ -149,6 +153,37 @@ const nextSlide = () => {
     currentIndex.value++;
   }
 };
+
+// 登出函数
+const logout = async () => {
+  try {
+    // 从本地存储中获取 authorization
+    const authorization = localStorage.getItem("authorization");
+    if (!authorization) {
+      console.error("未找到 authorization");
+      router.push("/Login");
+      return;
+    }
+    // 发送登出请求
+    const response = await fetch("http://localhost:8080/api/user/logout", {
+      method: "POST",
+      headers: {
+        Authorization: authorization,
+      },
+    });
+
+    const data = await response.json();
+    if (response.ok && data.success) {
+      // 清除本地存储中的 authorization
+      localStorage.removeItem("authorization");
+      router.push("/Login");
+    } else {
+      console.error("登出失败:", data.message);
+    }
+  } catch (error) {
+    console.error("请求出错:", error);
+  }
+};
 </script>
 
 <style scoped>
@@ -161,6 +196,47 @@ const nextSlide = () => {
   background-size: cover;
   padding-bottom: 3rem;
   box-sizing: border-box;
+  position: relative;
+}
+
+.logout-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.logout-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: all 0.6s ease;
+}
+
+.logout-button:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+  transform: scale(1.1);
+}
+
+.logout-button:hover::before {
+  left: 100%;
 }
 
 .loading-container {
