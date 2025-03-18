@@ -18,13 +18,7 @@
 </template>
 
 <script setup>
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
 import { useRoute } from "#imports";
-
-// 注册图标库
-library.add(faUserSecret);
 
 // 定义导航栏列表
 const navs = [

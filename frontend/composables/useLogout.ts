@@ -7,10 +7,9 @@ export function useLogout() {
   async function logout() {
     try {
       const response = await apiRequest(
-        "user/logout",
-        {
-          method: "POST",
-        },
+        "api/user/logout",
+        "POST",
+        undefined,
         true,
       );
 

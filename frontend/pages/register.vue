@@ -18,14 +18,12 @@ const password = ref("");
 const router = useRouter();
 const registerMessage = ref("");
 
-async function handleRegister() {
+const handleRegister = async () => {
   try {
     const response = await apiRequest(
-      "user/register",
-      {
-        method: "POST",
-        body: JSON.stringify({ name: name.value, password: password.value }),
-      },
+      "api/user/register",
+      "POST",
+      { name: name.value, password: password.value },
       false,
     );
 
@@ -47,7 +45,7 @@ async function handleRegister() {
     registerMessage.value = "请求出错，请检查网络连接。";
     console.error("请求出错:", error);
   }
-}
+};
 </script>
 
 <style scoped>

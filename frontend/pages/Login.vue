@@ -20,14 +20,12 @@ const router = useRouter();
 const loginMessage = ref("");
 
 // 登录函数
-async function handleLogin() {
+const handleLogin = async () => {
   try {
     const response = await apiRequest(
-      "user/login",
-      {
-        method: "POST",
-        body: JSON.stringify({ name: name.value, password: password.value }),
-      },
+      "api/user/login",
+      "POST",
+      { name: name.value, password: password.value },
       false,
     );
 
@@ -49,12 +47,12 @@ async function handleLogin() {
     loginMessage.value = "请求出错，请检查网络连接。";
     console.error("请求出错:", error);
   }
-}
+};
 
 // 跳转到注册页面
-function goToRegister() {
+const goToRegister = () => {
   router.push("/register");
-}
+};
 </script>
 
 <style scoped>

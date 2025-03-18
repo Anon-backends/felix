@@ -1,7 +1,7 @@
 <template>
   <div class="root">
     <LogoutButton />
-    <LoadingIndicator v-if="isLoading" :progress="progress" />
+    <LoadingIndicator v-if="isLoading" />
     <Carousel v-else :games="games" />
     <BottomNavBar />
   </div>
@@ -25,7 +25,7 @@ const games = [
 ];
 
 // 使用组合式函数
-const { isLoading, progress } = useCheckLoginStatus();
+const { isLoading } = useCheckLoginStatus();
 </script>
 
 <style scoped>

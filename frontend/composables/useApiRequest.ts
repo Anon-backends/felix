@@ -1,8 +1,13 @@
 import { authorizedFetch } from "./useAuthorizedFetch";
 
-const baseUrl = "http://localhost:8080";
+const BASE_URL = "http://localhost:8080";
 
-export function apiRequest(endpoint, options = {}, requireAuth = true) {
-  const url = `${baseUrl}/api/${endpoint}`;
-  return authorizedFetch(url, options, requireAuth);
+export function apiRequest(
+  endpoint: string,
+  method: string = "GET",
+  body?: any,
+  requireAuth: boolean = true,
+) {
+  const url = `${BASE_URL}/${endpoint}`;
+  return authorizedFetch(url, method, body, requireAuth);
 }
