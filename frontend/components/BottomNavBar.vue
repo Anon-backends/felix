@@ -1,5 +1,4 @@
 <template>
-  <p>Workshop</p>
   <div class="bottom-bar">
     <font-awesome-icon
       class="nav-icon"
@@ -21,7 +20,7 @@
 <script setup>
 import { useRoute } from "#imports";
 
-// 定义导航栏数据
+// 定义导航栏列表
 const navs = [
   { label: "游戏", path: "/" },
   { label: "创意工坊", path: "/workshop" },
@@ -55,7 +54,7 @@ const isActive = (path) => {
   justify-content: space-evenly;
   padding: 0.5rem 1rem;
   border-top: 0.1rem solid #ccc;
-  background-color: #222;
+  background-color: rgba(0, 0, 0, 0.8);
   box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   animation: fadeIn 0.5s ease-out;

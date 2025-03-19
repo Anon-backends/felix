@@ -4,7 +4,7 @@
   </NuxtLayout>
 </template>
 
-<style>
+<style scoped>
 html,
 body {
   width: 100vw;
