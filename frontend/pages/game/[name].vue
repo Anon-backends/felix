@@ -1,48 +1,49 @@
 <template>
-  <div class="game-detail-container">
+  <BackgroundLightEffect>
+    <BackButton />
     <h1>{{ $route.params.name }}</h1>
+    <GameDescription />
     <div class="button-container">
-      <button class="custom-button" @click="handleHumanVsLLMsClick">人类 vs LLMs</button>
-      <button class="custom-button" @click="handleLLMsVsLLMsClick">LLMs vs LLMs</button>
+      <button class="custom-button" @click="handleHumanVsLLMsClick">
+        人类 vs LLMs
+      </button>
+      <button class="custom-button" @click="handleLLMsVsLLMsClick">
+        LLMs vs LLMs
+      </button>
     </div>
-  </div>
+    <GameFeatures />
+  </BackgroundLightEffect>
 </template>
 
 <script setup>
-import { useRouter } from '#app';
+import { useRouter } from "#app";
+import BackButton from "~/components/BackButton.vue";
+import GameDescription from "~/components/GameDescription.vue";
+import GameFeatures from "~/components/GameFeatures.vue";
+import BackgroundLightEffect from "~/components/BackgroundLightEffect.vue";
 
 const router = useRouter();
 
 const handleHumanVsLLMsClick = () => {
-  // 这里的路径需要根据你的实际路由配置修改
-  router.push('/human-vs-llms');
+  router.push("/human-vs-llms");
 };
 
 const handleLLMsVsLLMsClick = () => {
-  // 这里的路径需要根据你的实际路由配置修改
-  router.push('/llms-vs-llms');
+  router.push("/llms-vs-llms");
 };
 </script>
 
 <style scoped>
-.game-detail-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  background-color: #f4f4f9;
-}
-
 h1 {
-  font-size: 2.5rem;
-  color: #333;
-  margin-bottom: 2rem;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
 }
 
 .button-container {
   display: flex;
   gap: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .custom-button {
@@ -51,13 +52,15 @@ h1 {
   font-weight: bold;
   border: none;
   border-radius: 0.5rem;
-  background-color: #007BFF;
+  background: linear-gradient(to right, #00f0ff, #00ff8c);
   color: white;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background 0.3s ease;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
 }
 
 .custom-button:hover {
-  background-color: #0056b3;
+  background: linear-gradient(to right, #00ff8c, #00f0ff);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.7);
 }
-</style>    
+</style>

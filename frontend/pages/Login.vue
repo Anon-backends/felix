@@ -19,7 +19,6 @@ const password = ref("");
 const router = useRouter();
 const loginMessage = ref("");
 
-// 登录函数
 const handleLogin = async () => {
   try {
     const response = await apiRequest(
@@ -49,7 +48,6 @@ const handleLogin = async () => {
   }
 };
 
-// 跳转到注册页面
 const goToRegister = () => {
   router.push("/register");
 };
@@ -58,11 +56,22 @@ const goToRegister = () => {
 <style scoped>
 .login-background {
   background-image: url("~/assets/background.webp");
-  background-size: cover;
-  background-position: center;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  animation: gradientAnimation 15s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 </style>
